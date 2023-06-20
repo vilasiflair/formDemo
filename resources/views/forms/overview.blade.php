@@ -91,7 +91,9 @@
             <!--end::Breadcrumb-->
 
             <!--begin::Button-->
-            <a href="javascript:void(0);" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a>
+            <!-- <a href="javascript:void(0);" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a> -->
+
+            <a href="{{route('forms.create')}}" class="btn btn-success font-weight-bolder font-size-sm ml-2" title="Create Form')}}" aria-haspopup="true" aria-expanded="false">Create</a>
             <!--end::Button-->
         </div>
 

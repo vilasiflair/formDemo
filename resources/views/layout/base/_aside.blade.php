@@ -15,9 +15,9 @@
     {{-- Brand --}}
     <div class="brand flex-column-auto {{ Metronic::printClasses('brand', false) }}" id="kt_brand">
         <div class="brand-logo">
-            <a href="{{ url('/dashboard') }}">
+            <!-- <a href="{{ url('/dashboard') }}">
                 <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/logo-default-inverse.png') }}"/>
-            </a>
+            </a> -->
         </div>
 
         @if (config('layout.aside.self.minimize.toggle'))

@@ -142,19 +142,19 @@
                     if(questionTypeValue == 3)
                     {
                        $appendInput+='<span>-</span>';
-                       $appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid" name="multipleChoice" value="Option 1" /></div>';
+                       $appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option 1" /></div>';
                        $appendInput+='<div class="multipleOptionAppend"></div>';
                        $appendInput+='<span>-</span>';
-                       $appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid LastMultipleOption" name="multipleChoice" placeholder="Add Option" value="" /><span>Or </span><a href="">Add "Other"</a></div>';
+                       $appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid LastMultipleOption multiOption" name="multipleChoice" placeholder="Add Option" value="" /><span>Or </span><a href="">Add "Other"</a></div>';
                     }
 
                     $('.appendInput').append($appendInput);
 
                     $(".LastMultipleOption").click(function(){
                         $multipleOptionAppend = '';
-                        $countOption = '1';
+                        var countOption = $('.multiOption').length;
                         $multipleOptionAppend+='<span>-</span>';
-                        $multipleOptionAppend+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid" name="multipleChoice" value="Option "+ $countOption++ /></div>';
+                        $multipleOptionAppend+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option '+ countOption +'"/></div>';
 
                         $('.multipleOptionAppend').append($multipleOptionAppend);
 

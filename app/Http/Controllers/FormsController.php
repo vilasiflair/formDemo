@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFormsRequest;
 use App\Http\Requests\UpdateFormsRequest;
 use App\Models\Forms;
+use App\Models\QuestionInputType;
 
 class FormsController extends Controller
 {
@@ -25,7 +26,8 @@ class FormsController extends Controller
      */
     public function create()
     {
-        //
+        $inputTypesData = QuestionInputType::all();
+        return view('forms.createForm',compact('inputTypesData'));
     }
 
     /**

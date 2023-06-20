@@ -21,9 +21,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'PagesController@index')->name('dashboard');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+/* Route::group(['middleware' => ['auth']], function () {
     Route::get('/forms', 'FormsController@index')->name('forms');
-});
+}); */
+
+Route::resources([
+    'forms' => 'FormsController',
+]);
+
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');
