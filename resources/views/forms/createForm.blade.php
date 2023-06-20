@@ -158,7 +158,7 @@
                 // console.log("appendInput",appendInput);
                 var questionTypeValue = $('.questionTypeValue').attr("data-inputtype");
                 var questionTypeAppend = '';
-                questionTypeAppend+='<div class="questionAppend"><span>'+questionValue+'</span></div>'+appendInput+'</div><div><a href="" class="btn getDuplicateQuestion"><i class="fa fa-clone"></i></a><a href="" class="btn removeQuestion"><i class="fa fa-trash"></i></a><label for="required_toggle">Required </label><input type="checkbox" value="1" checked></div>';
+                questionTypeAppend+='<div class="questionAppend"><span>'+questionValue+'</span></div>'+appendInput+'</div><div><a href="" class="btn getDuplicateQuestion"><i class="fa fa-clone"></i></a><a href="javascript:void(0)" class="btn removeQuestion"><i class="fa fa-trash"></i></a><label for="required_toggle">Required </label><input type="checkbox" value="1" checked></div>';
 
                 $('.questionDetailBox').append(questionTypeAppend);
                 $('.questionValue').val('');
@@ -166,12 +166,12 @@
 
             });
 
-            $(".removeQuestion").click(function(){
-                alert(this);
-                $(this).hide();
+            $(".removeQuestion").click(function(e){
+                e.preventDefault();
+                alert("test");
+                $(this).parent(".questionDetailBox").remove();
                 // var aaaaaaaaa = $(".questionDetailBox .lastOption").hide();
             });
-
             
         });
     </script>
