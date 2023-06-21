@@ -10,77 +10,88 @@
     </div> -->
 
     <div class="createForm">
-        <!--begin::Stepper-->
-        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_modal_create_app_stepper">
-            
-            <!--begin::Content-->
-            <div class="flex-row-fluid py-lg-5 px-lg-15">
-                <!--begin::Form-->
+        <div class="post d-flex flex-column-fluid" id="kt_post">
+            <div id="kt_content_container" class="container-xxl">
                 <form class="form" novalidate="novalidate" id="kt_modal_create_app_form">
-                    <!--begin::Step 1-->
-                    <div class="main_form_details">
-                        <div class="stepper-label">
-                            <h3 class="stepper-title">Form Details</h3>
-                            <input type="text" class="form-control form-control-lg form-control-solid" name="form_name" placeholder="Form Details" value="" />
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="row g-xxl-9">
+                                <div class="col-xxl-9">
+                                    <div class="d-flex align-self-center">
+                                        <div class="flex-grow-1 ">
+                                            <h3 class="text-gray-800">Form Details</h3>
+                                            <input type="text" class="form-control form-control-lg form-control-solid" name="form_name" placeholder="Form Details" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <br>
-
-                    <div class="questionDetailBox">
-                        <!-- <div class="questionAppend">
-
-                        </div> -->
-                        <!-- <div class="questionTypeAppend">
-                            
-                        </div> -->
-                    </div>
-                    <div class="question_Details"> 
-                        <div class="fv-row mb-10 ">
-                            <!--begin::Input-->
-                            <div class="question">
-                                <input type="text" class="form-control form-control-lg form-control-solid questionValue" name="question" placeholder="Question" value="" />
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="row g-xxl-9">
+                                <div class="col-xxl-9">
+                                    <div class="d-flex align-self-center">
+                                        <div class="flex-grow-1 ">
+                                            <h6 class="text-gray-800 mb-5">Add Questions</h6>
+                                            <div class="questionDetailBox  mb-10">
+                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            
-                            <div class="question_type_dropdown">
-                                <select class="form-control question_type questionTypeValue">
-                                    @foreach($inputTypesData as $inputType)
-                                    <option value="{{$inputType->id}}" data-inputType="{{$inputType->input_type}}">{{$inputType->input_type}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <br>
-                            <div class="appendInput">
-                                
-                            </div>
-                            <!--end::Input-->
                         </div>
                     </div>
                     
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="question_Details">
+                                <div class="row g-xxl-9  mb-5">
+                                    <div class="col-xxl-9">
+                                        <div class="d-flex align-self-center">
+                                            <div class="flex-grow-1 ">
+                                                <div class="question">
+                                                    <input type="text" class="form-control form-control-lg form-control-solid questionValue" name="question" placeholder="Question" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-xxl-9 mb-5">
+                                    <div class="col-xxl-9">
+                                        <div class="d-flex align-self-center">
+                                            <div class="flex-grow-1 ">
+                                                <div class="question_type_dropdown">
+                                                    <select class="form-control question_type questionTypeValue">
+                                                        @foreach($inputTypesData as $inputType)
+                                                        <option value="{{$inputType->id}}" data-inputType="{{$inputType->input_type}}">{{$inputType->input_type}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="appendInput">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--begin::Actions-->
                     <div class="d-flex flex-stack pt-10">
-                        
-                        <!--begin::Wrapper-->
                         <div>
-                            <!-- <button type="button" class="btn btn-lg btn-primary getDuplicateQuestion" data-kt-stepper-action="submit">
-                                <span class="indicator-label">Duplicate</span>
-                            </button>
-                            <button type="button" class="btn btn-lg btn-primary removeQuestion" data-kt-stepper-action="submit">
-                                <span class="indicator-label">Remove</span>
-                            </button> -->
-                            <button type="button" class="btn btn-lg btn-primary addQuestionRow" data-kt-stepper-action="submit">
-                                <span class="indicator-label">Add</span>
+                            <button type="button" class="btn btn-primary addQuestionRow" data-kt-stepper-action="submit">Add
                             </button>
                         </div>
-                        <!--end::Wrapper-->
                     </div>
                     <!--end::Actions-->
                 </form>
-                <!--end::Form-->
             </div>
-            <!--end::Content-->
         </div>
-        <!--end::Stepper-->
     </div>
 
 @endsection
@@ -109,21 +120,74 @@
                 }
                 else if(questionTypeValue == 3)
                 {
-                    appendInput+='<div class="removeLastOption"><span>-</span>';
+                    appendInput+='<div class="removeLastOption">';
+                    appendInput+='<div class="row mb-2">';
+                    appendInput+='<div class="col-md-1">';
+                    appendInput+='<span>-</span>';
+                    appendInput+='</div>';
+                    appendInput+='<div class="col-md-10">';
+                    appendInput+='<div class="question_type_options">';
+                    appendInput+='<input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option 1" data-inputType = "'+questionInputTypeValue+'"/>';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+                    appendInput+='<div class="col-md-1">';
+                    appendInput+='<a href="javascript:void(0)" class="removeMultipleOption">';
+                    appendInput+='<i class="fa fa-times" aria-hidden="true"></i>';
+                    appendInput+='</a>';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+                    appendInput+='<div class="multipleOptionAppend"></div>';
+                    appendInput+='<div class="lastOption">';
+                    appendInput+='<div class="row">';
+                    appendInput+='<div class="col-md-1">';
+                    appendInput+='<span>-</span>';
+                    appendInput+='</div>';
+                    appendInput+='<div class="col-md-2">';
+                    appendInput+='<div class="question_type_options">';
+                    appendInput+='<input type="text" class="form-control form-control-sm form-control-solid multiOption LastMultipleOption" name="multipleChoice" placeholder="Add Option" value="" />';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+                    appendInput+='<div class="col-md-2">';
+                    appendInput+='<span>Or </span>';
+                    appendInput+='<a href="javascript:void(0)">Add "Other"</a>';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+                    appendInput+='</div>';
+
+
+                    /* appendInput+='<div class="removeLastOption"><span>-</span>';
                     appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option 1" data-inputType = "'+questionInputTypeValue+'"/><a href="" class="removeMultipleOption"><i class="fa fa-times" aria-hidden="true"></i></a></div>';
                     appendInput+='<div class="multipleOptionAppend"></div>';
                     appendInput+='<div class="lastOption"><span>-</span>';
-                    appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid LastMultipleOption multiOption" name="multipleChoice" placeholder="Add Option" value="" /><span>Or </span><a href="">Add "Other"</a></div></div></div>';
+                    appendInput+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid LastMultipleOption multiOption" name="multipleChoice" placeholder="Add Option" value="" /><span>Or </span><a href="">Add "Other"</a></div></div></div>'; */
                 }
-                // $('.questionTypeValue').trigger('change');
                 $('.appendInput').append(appendInput);
                 
 
                 $(".LastMultipleOption").click(function(){
                     var multipleOptionAppend = '';
                     var countOption = $('.multiOption').length;
+
+                    multipleOptionAppend+='<div class="row mb-2">';
+                    multipleOptionAppend+='<div class="col-md-1">';
                     multipleOptionAppend+='<span>-</span>';
-                    multipleOptionAppend+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option '+ countOption +'" data-inputType = "'+questionInputTypeValue+'"/><a href="" class="removeMultipleOption"><i class="fa fa-times" aria-hidden="true"></i></a></div>';
+                    multipleOptionAppend+='</div>';
+                    multipleOptionAppend+='<div class="col-md-10">';
+                    multipleOptionAppend+='<div class="question_type_options">';
+                    multipleOptionAppend+='<input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option '+ countOption +'" data-inputType = "'+questionInputTypeValue+'"/>';
+                    multipleOptionAppend+='</div>';
+                    multipleOptionAppend+='</div>';
+                    multipleOptionAppend+='<div class="col-md-1">';
+                    multipleOptionAppend+='<a href="javascript:void(0)" class="removeMultipleOption">';
+                    multipleOptionAppend+='<i class="fa fa-times" aria-hidden="true"></i>';
+                    multipleOptionAppend+='</a>';
+                    multipleOptionAppend+='</div>';
+                    multipleOptionAppend+='</div>';
+
+
+                    /* multipleOptionAppend+='<span>-</span>';
+                    multipleOptionAppend+='<div class="question_type_options"><input type="text" class="form-control form-control-lg form-control-solid multiOption" name="multipleChoice" value="Option '+ countOption +'" data-inputType = "'+questionInputTypeValue+'"/><a href="" class="removeMultipleOption"><i class="fa fa-times" aria-hidden="true"></i></a></div>'; */
 
                     $('.multipleOptionAppend').append(multipleOptionAppend);
 
@@ -132,30 +196,21 @@
             });
             $('.questionTypeValue').trigger('change');
 
-            let i = 1;
             $(".addQuestionRow").click(function(){
-                i++;
+                
                 var questionValue = $('.questionValue').val();
                 var questionTypeValue = $('.questionTypeValue').val();
                 var questionValue = questionValue ? questionValue : 'Question';
                 var appendInput = $('.appendInput').html();
-                // alert("appendInput", appendInput, i);
-                // console.log("appendInput::", appendInput, i);
+                
                 if(questionTypeValue == 3)
                 {
                     setTimeout(() => {
-                        // var appendInput = $("appendInput div:last").remove();
-                        var aaaaaaaaa = $(".questionDetailBox .lastOption").hide();
-                        // var $inputs = $('.removeLastOption input:not(.lastOption input)').html();
-
-                        // var appendInput = appendInput.html();
-                        console.log("lastOptionInput:::", aaaaaaaaa.html());
+                        $(".questionDetailBox .lastOption").hide();
                         appendInput = $('.appendInput').html();
-                        console.log("appendInput:::", appendInput);
                     }, 500);
                 }
                     
-                // console.log("appendInput",appendInput);
                 var questionTypeValue = $('.questionTypeValue').attr("data-inputtype");
                 var questionTypeAppend = '';
                 questionTypeAppend+='<div class="questionAppend"><span>'+questionValue+'</span></div>'+appendInput+'</div><div><a href="" class="btn getDuplicateQuestion"><i class="fa fa-clone"></i></a><a href="javascript:void(0)" class="btn removeQuestion"><i class="fa fa-trash"></i></a><label for="required_toggle">Required </label><input type="checkbox" value="1" checked></div>';
@@ -170,7 +225,6 @@
                 e.preventDefault();
                 alert("test");
                 $(this).parent(".questionDetailBox").remove();
-                // var aaaaaaaaa = $(".questionDetailBox .lastOption").hide();
             });
             
         });
