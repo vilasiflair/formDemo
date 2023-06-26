@@ -104,6 +104,12 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
+        function removeOption() {
+            $(".removeMultipleOption").click(function(e){
+                e.preventDefault();
+                $(this).parents(".middleOptions, .middleOptionFirst").remove();
+            });
+        }
         
         $(document).ready(function(){
 
@@ -123,7 +129,7 @@
                 else if(questionTypeValue == 3)
                 {
                     appendInput+='<div class="removeLastOption">';
-                    appendInput+='<div class="row mb-2">';
+                    appendInput+='<div class="row mb-2 middleOptionFirst">';
                     appendInput+='<div class="col-md-1">';
                     appendInput+='<span>-</span>';
                     appendInput+='</div>';
@@ -183,6 +189,8 @@
 
                     $('.appendInput .multipleOptionAppend').append(multipleOptionAppend);
 
+                    removeOption();
+
                 });
 
             });
@@ -240,15 +248,13 @@
                 $('.appendInput').empty();
                 $('.questionTypeValue').val('');
 
+                removeOption();
+
             });
 
-            removeMultipleOption
             
-            $(".removeMultipleOption").click(function(e){
-                e.preventDefault();
-                alert("test");
-                $(this).parent(".questionDetailBox").remove();
-            });
+            
+            
             
         });
     </script>
