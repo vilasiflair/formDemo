@@ -35,7 +35,7 @@
                                         <div class="flex-grow-1 ">
                                             <h6 class="text-gray-800 mb-5">Add Questions</h6>
                                             <div class="questionDetailBox  mb-10">
-                        
+                                           
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,39 @@
                 $(this).parents(".middleOptions, .middleOptionFirst").remove();
             });
         }
+
+        /* function addDuplicateQuestion() {
+            $(".getDuplicateQuestion").off("click");
+            $(".getDuplicateQuestion").on("click", function(e){
+                e.preventDefault();
+                let rowHtml = '';
+                rowHtml = $(this).parents(".questionRow").html();
+                console.log("rowHtml:::: ===",rowHtml);
+                $(this).parents(".questionDetailBox .questionRow").after('<div class="card mb-5 questionRow">'+rowHtml+'</div>');
+            });
+        } */
+
+        $(document).on('click', '.getDuplicateQuestion', function(event) {
+            event.preventDefault();
+            let rowHtml = '';
+            rowHtml = $(this).parents(".questionRow").html();
+            console.log("rowHtml:::: ===",rowHtml);
+            $(this).parents(".questionDetailBox .questionRow").after('<div class="card mb-5 questionRow">'+rowHtml+'</div>');
+        });
         
+        $(document).on('click', '.editQuestion', function(event) {
+            event.preventDefault();
+            
+            $(".questionRow .question_Details").find('input').attr("readonly", true);
+            $(".questionRow .question_Details").find('.questionAppend input').attr("type", "hidden");
+            $(".questionRow .question_Details").find('.questionAppend span').show();
+
+            $(this).parents(".question_Details").find('.removeLastOption input').attr("readonly", false);
+            $(this).parents(".question_Details").find('.questionAppend input').attr("readonly", false);
+            $(this).parents(".question_Details").find('.questionAppend input').attr("type", "text");
+            $(this).parents(".question_Details").find('.questionAppend span').hide();
+        });
+
         $(document).ready(function(){
 
             $(".questionTypeValue").change(function(){
@@ -120,11 +152,11 @@
                 var appendInput = '';
                 if(questionTypeValue == 1)
                 {
-                    appendInput+='<div class="question_type_options"><input readonly type="text" class="form-control form-control-lg form-control-solid" name="shortQuestion" placeholder="Short Question Text" value="" data-inputType = "'+questionInputTypeValue+'"/></div>';
+                    appendInput+='<div class="question_type_options col-md-11"><input readonly type="text" class="form-control form-control-lg form-control-solid" name="shortQuestion" placeholder="Short Question Text" value="" data-inputType = "'+questionInputTypeValue+'"/></div>';
                 }
                 else if(questionTypeValue == 2)
                 {
-                    appendInput+='<div class="question_type_options"><input readonly type="text" class="form-control form-control-lg form-control-solid" name="paragraph" placeholder="Paragraph Text" value="" data-inputType = "'+questionInputTypeValue+'"/></div>';
+                    appendInput+='<div class="question_type_options col-md-11"><input readonly type="text" class="form-control form-control-lg form-control-solid" name="paragraph" placeholder="Paragraph Text" value="" data-inputType = "'+questionInputTypeValue+'"/></div>';
                 }
                 else if(questionTypeValue == 3)
                 {
@@ -202,11 +234,12 @@
                 var questionTypeValue = $('.questionTypeValue').val();
                 var questionValue = questionValue ? questionValue : 'Question';
                 var appendInput = $('.appendInput').html();
-                
+
                 if(questionTypeValue == 3)
                 {
                     setTimeout(() => {
                         $(".questionDetailBox .lastOption").hide();
+                        $(".questionDetailBox .removeMultipleOption").hide();
                         appendInput = $('.appendInput').html();
                     }, 500);
                 }
@@ -214,16 +247,19 @@
                 var questionTypeValue = $('.questionTypeValue').attr("data-inputtype");
                 var questionTypeAppend = '';
 
-                questionTypeAppend+='<div class="card mb-5">';
+                questionTypeAppend+='<div class="card mb-5 questionRow">';
                 questionTypeAppend+='<div class="card-body">';
                 questionTypeAppend+='<div class="question_Details">';
                 questionTypeAppend+='<div class="row mb-5">';
                 questionTypeAppend+='<div class="col-md-8">';
-                questionTypeAppend+='<div class="questionAppend">'+questionValue+'</div>';
+                questionTypeAppend+='<div class="questionAppend"><span>'+questionValue+'</span><input type="hidden" value='+questionValue+' name="question" class="editableQuestion form-control"></div>';
                 questionTypeAppend+='</div>';
                 questionTypeAppend+='<div class="col-md-4">';
                 questionTypeAppend+='<a href="javascript:void(0)" class="btn getDuplicateQuestion">';
                 questionTypeAppend+='<i class="fa fa-clone"></i>';
+                questionTypeAppend+='</a>';
+                questionTypeAppend+='<a href="javascript:void(0)" class="btn editQuestion">';
+                questionTypeAppend+='<i class="fas fa-edit"></i></i>';
                 questionTypeAppend+='</a>';
                 questionTypeAppend+='<a href="javascript:void(0)" class="btn removeQuestion">';
                 questionTypeAppend+='<i class="fa fa-trash"></i>';
@@ -241,19 +277,21 @@
                 questionTypeAppend+='</div>';
 
                 /* questionTypeAppend+='<div class="questionAppend"><span>'+questionValue+'</span></div>'+appendInput+'</div><div><a href="" class="btn getDuplicateQuestion"><i class="fa fa-clone"></i></a><a href="javascript:void(0)" class="btn removeQuestion"><i class="fa fa-trash"></i></a><label for="required_toggle">Required </label><input type="checkbox" value="1" checked></div>'; */
-
                 $('.questionDetailBox').append(questionTypeAppend);
+                $(".question_Details .multiOption").attr("readonly",true);
+
                 $('.questionValue').val('');
                 // $(".appendInput .middleOptions").remove();
                 $('.appendInput').empty();
                 $('.questionTypeValue').val('');
 
                 removeOption();
+                // addDuplicateQuestion();
 
             });
 
             
-            
+            // addDuplicateQuestion();
             
             
         });
