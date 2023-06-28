@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::resources([
     'forms' => 'FormsController',
 ]);
-
+Route::post('/storeFormData', 'FormsController@storeFormData')->name('storeFormData');
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');

@@ -6,6 +6,8 @@ use App\Http\Requests\StoreFormsRequest;
 use App\Http\Requests\UpdateFormsRequest;
 use App\Models\Forms;
 use App\Models\QuestionInputType;
+use Illuminate\Http\Request;
+use DB;
 
 class FormsController extends Controller
 {
@@ -40,6 +42,25 @@ class FormsController extends Controller
     {
         //
     }
+
+    public function storeFormData(Request $request)
+    {
+        dd($request);
+        $form_name = $request->form_name;
+        $questionValue = $request->questionValue;
+        $questionTypeValue = $request->questionTypeValue;
+        
+        $Forms = new Forms();
+        $Forms->form_name = $form_name;
+        $Forms->save();
+
+        $QuestionInputType = new QuestionInputType();
+        $QuestionInputType->questionValue = $questionValue;
+        $QuestionInputType->questionTypeValue = $questionTypeValue;
+        $QuestionInputType->save();
+        return response()->json($QuestionInputType);
+    }
+
 
     /**
      * Display the specified resource.
