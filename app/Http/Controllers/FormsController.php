@@ -44,44 +44,88 @@ class FormsController extends Controller
         //
     }
 
+    public function createForm(Request $request)
+    {
+        $form_name = $request->form_name ? $request->form_name :"";
+        
+        $Forms = new Forms();
+        $Forms->form_name = $form_name;
+        $Forms->save(); 
+        
+        return response()->json($Forms);
+    }
+
     public function storeFormData(Request $request)
     {
-        $form_name = $request->form_name ? $request->form_name :"Form Demo";
-        $questionValue = $request->questionValue;
-        $questionTypeValue = $request->questionTypeValue;
-        $multiOptionsValueData = $request->multiOptionsValueData;
-        if((gettype($request->multiOptionsValueData))=='array')
+        if($request->form_id==null)
         {
-            $multiOptionsValueData = implode(',', $request->multiOptionsValueData);
+            // dd("Null formID data");
+            $form_name = $request->form_name ? $request->form_name :"Form Demo";
+            $questionValue = $request->questionValue;
+            $questionTypeValue = $request->questionTypeValue;
+            $multiOptionsValueData = $request->multiOptionsValueData;
+            if((gettype($request->multiOptionsValueData))=='array')
+            {
+                $multiOptionsValueData = implode(',', $request->multiOptionsValueData);
+            }
+            
+            $Forms = new Forms();
+            $Forms->form_name = $form_name;
+            $Forms->save(); 
+            
+            $formData = Forms::select('id', 'form_name')->latest()->first();
+            $form_id = $formData->id;
+            $form_name = $formData->form_name;
+            $Question_detail = new Question_detail();
+            $Question_detail->form_id = $form_id;
+            $Question_detail->questionValue = $questionValue;
+            $Question_detail->questionTypeValue = $questionTypeValue;
+            $Question_detail->ansValueData = $multiOptionsValueData;
+            $Question_detail->save();
+            $questionInputTypeData = QuestionInputType::where('id',$questionTypeValue)->first();
+            $Question_detail['formData'] = $formData;
+            $Question_detail['form_id'] = $form_id;
+            $Question_detail['form_name'] = $form_name;
+            $Question_detail['questionInputTypeData'] = $questionInputTypeData;
+            $Question_detail['ansValueData'] = '';
+            if($Question_detail->ansValueData)
+            {
+                $Question_detail['ansValueData'] = explode(',',$multiOptionsValueData);
+            }
+            // dd(response()->json($Question_detail));
         }
-        
-        // $Forms = new Forms();
-        /* $update = Forms::updateOrCreate(
-            [
-                'id' => $request->id,
-            ],
-            [
-                'form_name' => $form_name,
-            ],
-        ); */
-        $formData = Forms::select('id', 'form_name')->latest()->first();
-        dd($formData);
-        $form_id = $formData->id;
-        $Question_detail = new Question_detail();
-        $Question_detail->form_id = $form_id;
-        $Question_detail->questionValue = $questionValue;
-        $Question_detail->questionTypeValue = $questionTypeValue;
-        $Question_detail->ansValueData = $multiOptionsValueData;
-        $Question_detail->save();
-        $questionInputTypeData = QuestionInputType::where('id',$questionTypeValue)->first();
-        $Question_detail['formData'] = $formData;
-        $Question_detail['questionInputTypeData'] = $questionInputTypeData;
-        $Question_detail['ansValueData'] = '';
-        if($Question_detail->ansValueData)
+        else
         {
-            $Question_detail['ansValueData'] = explode(',',$multiOptionsValueData);
+            // dd("formID data");
+            $form_name = $request->form_name ? $request->form_name :"Form Demo";
+            $form_id = $request->form_id;
+            $questionValue = $request->questionValue;
+            $questionTypeValue = $request->questionTypeValue;
+            $multiOptionsValueData = $request->multiOptionsValueData;
+            if((gettype($request->multiOptionsValueData))=='array')
+            {
+                $multiOptionsValueData = implode(',', $request->multiOptionsValueData);
+            }
+            
+            // $Forms = new Forms();
+            Forms::where('id', $form_id)->update(['form_name' => $form_name]);
+            
+            $Question_detail = new Question_detail();
+            $Question_detail->form_id = $form_id;
+            $Question_detail->questionValue = $questionValue;
+            $Question_detail->questionTypeValue = $questionTypeValue;
+            $Question_detail->ansValueData = $multiOptionsValueData;
+            $Question_detail->save();
+            $questionInputTypeData = QuestionInputType::where('id',$questionTypeValue)->first();
+            $Question_detail['form_id'] = $form_id;
+            $Question_detail['form_name'] = $form_name;
+            $Question_detail['questionInputTypeData'] = $questionInputTypeData;
+            $Question_detail['ansValueData'] = '';
+            if($Question_detail->ansValueData)
+            {
+                $Question_detail['ansValueData'] = explode(',',$multiOptionsValueData);
+            }
         }
-        dd(response()->json($Question_detail));
         return response()->json($Question_detail);
     }
 

@@ -29,6 +29,7 @@ Route::resources([
     'forms' => 'FormsController',
 ]);
 Route::post('/storeFormData', 'FormsController@storeFormData')->name('storeFormData');
+Route::post('/createForm', 'FormsController@createForm')->name('createForm');
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');

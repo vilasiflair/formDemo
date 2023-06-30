@@ -10,13 +10,13 @@ var KTApp = function() {
         var width = el.data('width') == 'auto' ? 'tooltop-auto-width' : '';
         var trigger = el.data('trigger') ? el.data('trigger') : 'hover';
 
-        $(el).tooltip({
+        /* $(el).tooltip({ 
             trigger: trigger,
             template: '<div class="tooltip ' + theme + ' ' + width + '" role="tooltip">\
                 <div class="arrow"></div>\
                 <div class="tooltip-inner"></div>\
             </div>'
-        });
+        }); */
     }
 
     var initTooltips = function() {
