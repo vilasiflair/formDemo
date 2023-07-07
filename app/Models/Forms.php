@@ -12,5 +12,6 @@ class Forms extends Model
     protected $fillable = [
         'form_name',
         'total_submission',
+        'form_detail'
     ];
 }

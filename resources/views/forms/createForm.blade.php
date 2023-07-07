@@ -27,15 +27,6 @@
                                             <!-- </div> -->
                                         <!-- </div> -->
                                     </div>
-                                    <div class="col-xxl-9">
-                                        <!-- <div class="d-flex align-self-center"> -->
-                                            <!-- <div class="flex-grow-1 "> -->
-                                                <!-- <h3 class="text-gray-800">Form Details</h3> -->
-                                                <input type="hidden" name="form_id" class="form_id">
-                                                <input type="text" class="form-control form-control-lg form-control-solid form_name" name="form_name" placeholder="New Form" value="" required/>
-                                            <!-- </div> -->
-                                        <!-- </div> -->
-                                    </div>
                                 </div>
 
                                 <div class="row g-xxl-9">
@@ -178,9 +169,9 @@
 
         function storeData()
         {
-            alert("storeData");
-            return;
             var form_name = $('.form_name').val();
+            var form_id = $('.form_id').val();
+            var form_detail = $('.form_detail').val();
             var questionValue = $('.questionValue').val();
             var questionValue = questionValue ? questionValue : 'Question';
             var questionTypeValue = $('.questionTypeValue').val();
@@ -204,13 +195,14 @@
                 // }, 300);
             }
                 
-            if(questionTypeValue){
+            // if(questionTypeValue){
                 $.ajax({
                     url: "{{route('storeFormData')}}",
                     type:"POST" ,
                     data: {
-                        // form_id : form_id,
+                        form_id : form_id,
                         form_name : form_name,
+                        form_detail : form_detail,
                         questionValue : questionValue,
                         questionTypeValue : questionTypeValue,
                         multiOptionsValueData : multiOptionsValueData,
@@ -222,6 +214,7 @@
                         if(response){
                             $(".form_id").val(response.form_id);
                             $(".form_name").val(response.form_name);
+                            $(".form_detail").val(response.form_detail);
                             var questionValue = response.questionValue;
                             var questionTypeValue = response.questionTypeValue;
                             var questionInputType = response.questionInputTypeData.input_type;
@@ -271,7 +264,7 @@
                 });
                 $(".addQuestionRow2").show();
                 $(".addQuestionRow").hide();
-            }
+            // }
         }
 
         /* function addDuplicateQuestion() {
@@ -318,6 +311,7 @@
 
         function createForm() {
             var form_name = $('.form_name').val();
+            var form_detail = $('.form_detail').val();
             let _token = $("input[name=_token]").val();
                 
             $.ajax({
@@ -325,6 +319,7 @@
                 type:"POST" ,
                 data: {
                     form_name : form_name,
+                    form_detail : form_detail,
                     _token:_token
                 },
                 success:function(response)
@@ -421,13 +416,13 @@
             });  
             
             $(".form_data").on('change', function(){
-                alert("formData");
                 storeData();
             }); 
             
             $(".addQuestionRow2").click(function(){
                 
                 var form_name = $('.form_name').val();
+                var form_detail = $('.form_detail').val();
                 var form_id = $('.form_id').val();
                 
                 var questionValue = $('.questionValue').val();
@@ -461,6 +456,7 @@
                         data: {
                             form_id : form_id,
                             form_name : form_name,
+                            form_detail : form_detail,
                             questionValue : questionValue,
                             questionTypeValue : questionTypeValue,
                             multiOptionsValueData : multiOptionsValueData,
@@ -474,6 +470,7 @@
                             {
                                 $(".form_id").val(response.form_id);
                                 $(".form_name").val(response.form_name);
+                                $(".form_detail").val(response.form_detail);
                                 var questionValue = response.questionValue;
                                 var questionTypeValue = response.questionTypeValue;
                                 var questionInputType = response.questionInputTypeData.input_type;

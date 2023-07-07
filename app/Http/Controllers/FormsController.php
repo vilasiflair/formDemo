@@ -47,9 +47,11 @@ class FormsController extends Controller
     public function createForm(Request $request)
     {
         $form_name = $request->form_name ? $request->form_name :"";
+        $form_detail = $request->form_detail ? $request->form_detail :"";
         
         $Forms = new Forms();
         $Forms->form_name = $form_name;
+        $Forms->form_detail = $form_detail;
         $Forms->save(); 
         
         return response()->json($Forms);
@@ -61,6 +63,7 @@ class FormsController extends Controller
         {
             // dd("Null formID data");
             $form_name = $request->form_name ? $request->form_name :"Form Demo";
+            $form_detail = $request->form_detail ? $request->form_detail :"Form Detail";
             $questionValue = $request->questionValue;
             $questionTypeValue = $request->questionTypeValue;
             $multiOptionsValueData = $request->multiOptionsValueData;
@@ -71,11 +74,13 @@ class FormsController extends Controller
             
             $Forms = new Forms();
             $Forms->form_name = $form_name;
+            $Forms->form_detail = $form_detail;
             $Forms->save(); 
             
-            $formData = Forms::select('id', 'form_name')->latest()->first();
+            $formData = Forms::select('id', 'form_name', 'form_detail')->latest()->first();
             $form_id = $formData->id;
             $form_name = $formData->form_name;
+            $form_detail = $formData->form_detail;
             $Question_detail = new Question_detail();
             $Question_detail->form_id = $form_id;
             $Question_detail->questionValue = $questionValue;
@@ -86,6 +91,7 @@ class FormsController extends Controller
             $Question_detail['formData'] = $formData;
             $Question_detail['form_id'] = $form_id;
             $Question_detail['form_name'] = $form_name;
+            $Question_detail['form_detail'] = $form_detail;
             $Question_detail['questionInputTypeData'] = $questionInputTypeData;
             $Question_detail['ansValueData'] = '';
             if($Question_detail->ansValueData)
@@ -98,6 +104,7 @@ class FormsController extends Controller
         {
             // dd("formID data");
             $form_name = $request->form_name ? $request->form_name :"Form Demo";
+            $form_detail = $request->form_detail ? $request->form_detail :"Form Detail";
             $form_id = $request->form_id;
             $questionValue = $request->questionValue;
             $questionTypeValue = $request->questionTypeValue;
@@ -108,7 +115,7 @@ class FormsController extends Controller
             }
             
             // $Forms = new Forms();
-            Forms::where('id', $form_id)->update(['form_name' => $form_name]);
+            Forms::where('id', $form_id)->update(['form_name' => $form_name, 'form_detail' => $form_detail]);
             
             $Question_detail = new Question_detail();
             $Question_detail->form_id = $form_id;
@@ -119,6 +126,7 @@ class FormsController extends Controller
             $questionInputTypeData = QuestionInputType::where('id',$questionTypeValue)->first();
             $Question_detail['form_id'] = $form_id;
             $Question_detail['form_name'] = $form_name;
+            $Question_detail['form_detail'] = $form_detail;
             $Question_detail['questionInputTypeData'] = $questionInputTypeData;
             $Question_detail['ansValueData'] = '';
             if($Question_detail->ansValueData)
